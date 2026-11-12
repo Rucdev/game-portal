@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "game-portal",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "game-portal",
+      // `wrangler d1 create game-portal` の出力に置き換える
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "BUNDLES",
+      "bucket_name": "game-portal-bundles"
+    }
+  ],
+  "vars": {
+    // Cloudflare Access の設定。本番では両方必須（未設定だと /admin と /api は拒否される）
+    // 例: "https://<team>.cloudflareaccess.com"
+    "ACCESS_TEAM_DOMAIN": "",
+    // Access アプリケーションの Application Audience (AUD) タグ
+    "ACCESS_AUD": ""
+  }
+}

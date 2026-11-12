@@ -1,0 +1,41 @@
+---
+import { env } from 'cloudflare:workers';
+import Base from '../../layouts/Base.astro';
+
+export const prerender = false;
+
+const { slug = '' } = Astro.params;
+const game = await env.DB.prepare(
+  'SELECT slug, title, active_version FROM games WHERE slug = ?',
+)
+  .bind(slug)
+  .first<{ slug: string; title: string; active_version: string | null }>();
+
+if (!game?.active_version) {
+  return new Response('Not found', { status: 404 });
+}
+const src = `/games/${game.slug}/${game.active_version}/`;
+---
+
+<Base title={game.title}>
+  <h1>{game.title}</h1>
+  <div class="frame">
+    <iframe src={src} title={game.title} allow="fullscreen; gamepad; autoplay" allowfullscreen
+    ></iframe>
+  </div>
+</Base>
+
+<style>
+  .frame {
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+</style>

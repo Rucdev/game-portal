@@ -1,0 +1,52 @@
+---
+import { env } from 'cloudflare:workers';
+import Base from '../layouts/Base.astro';
+
+export const prerender = false;
+
+const { results: games } = await env.DB.prepare(
+  'SELECT slug, title FROM games WHERE active_version IS NOT NULL ORDER BY created_at DESC',
+).all<{ slug: string; title: string }>();
+---
+
+<Base title="game-portal">
+  <h1>ゲーム</h1>
+  {
+    games.length === 0 ? (
+      <p class="empty">公開中のゲームはまだありません。</p>
+    ) : (
+      <ul class="games">
+        {games.map((game) => (
+          <li>
+            <a href={`/play/${game.slug}`}>{game.title}</a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Base>
+
+<style>
+  .empty {
+    color: var(--muted);
+  }
+  .games {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .games a {
+    display: block;
+    padding: 0.9rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .games a:hover {
+    border-color: var(--accent);
+  }
+</style>

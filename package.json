@@ -1,0 +1,30 @@
+{
+  "name": "game-portal",
+  "version": "0.1.0",
+  "description": "Blog and Godot web game portal on Cloudflare Workers",
+  "scripts": {
+    "dev": "wrangler types && astro dev",
+    "build": "wrangler types && astro check && astro build",
+    "preview": "wrangler types && astro preview",
+    "check": "wrangler types && astro check",
+    "deploy": "npm run build && wrangler deploy",
+    "db:migrate:local": "wrangler d1 migrations apply game-portal --local",
+    "db:migrate:remote": "wrangler d1 migrations apply game-portal --remote"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^14.4.7",
+    "@astrojs/svelte": "^9.1.5",
+    "astro": "^7.4.11",
+    "hono": "^4.13.18",
+    "jose": "^6.2.17",
+    "svelte": "^5.57.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "svelte-check": "^4.7.8",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.160.1"
+  },
+  "private": true,
+  "type": "module"
+}
