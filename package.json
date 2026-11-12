@@ -4,9 +4,9 @@
   "description": "Blog and Godot web game portal on Cloudflare Workers",
   "scripts": {
     "dev": "wrangler types && astro dev",
-    "build": "wrangler types && astro check && astro build",
+    "build": "npm run check && astro build",
     "preview": "wrangler types && astro preview",
-    "check": "wrangler types && astro check",
+    "check": "wrangler types && astro check && svelte-check --tsconfig ./tsconfig.json",
     "deploy": "npm run build && wrangler deploy",
     "db:migrate:local": "wrangler d1 migrations apply game-portal --local",
     "db:migrate:remote": "wrangler d1 migrations apply game-portal --remote"

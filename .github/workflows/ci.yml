@@ -15,5 +15,4 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npx svelte-check --tsconfig ./tsconfig.json
       - run: npm run build
