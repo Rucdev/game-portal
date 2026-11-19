@@ -1,29 +1,35 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "game-portal",
-  "compatibility_date": "2026-11-01",
-  "compatibility_flags": ["nodejs_compat"],
-  "observability": { "enabled": true },
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "game-portal",
-      // `wrangler d1 create game-portal` の出力に置き換える
-      "database_id": "00000000-0000-0000-0000-000000000000",
-      "migrations_dir": "migrations"
-    }
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "game-portal",
+	"compatibility_date": "2026-11-01",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"observability": {
+		"enabled": true
+	},
+  "kv_namespaces": [
+    { "binding": "SESSION", "id": "4805625a70f84add9c16d3958c01020b" }
   ],
-  "r2_buckets": [
-    {
-      "binding": "BUNDLES",
-      "bucket_name": "game-portal-bundles"
-    }
-  ],
-  "vars": {
-    // Cloudflare Access の設定。本番では両方必須（未設定だと /admin と /api は拒否される）
-    // 例: "https://<team>.cloudflareaccess.com"
-    "ACCESS_TEAM_DOMAIN": "",
-    // Access アプリケーションの Application Audience (AUD) タグ
-    "ACCESS_AUD": ""
-  }
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "game-portal",
+			"migrations_dir": "migrations",
+			"database_id": "b12cb4f4-ac56-430a-b26a-0aa0d79e4804"
+		}
+	],
+	"r2_buckets": [
+		{
+			"binding": "BUNDLES",
+			"bucket_name": "game-portal-bundles"
+		}
+	],
+	"vars": {
+		// Cloudflare Access の設定。本番では両方必須（未設定だと /admin と /api は拒否される）
+		// 例: "https://<team>.cloudflareaccess.com"
+		"ACCESS_TEAM_DOMAIN": "https://yellow-cake-db0a.cloudflareaccess.com",
+		// Access アプリケーションの Application Audience (AUD) タグ
+		"ACCESS_AUD": "5ccd8200dd8cc8c4c243aa6e3a51d30d93f9c3dae75c826ab7e67d5b54f70704"
+	}
 }
