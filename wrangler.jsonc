@@ -5,6 +5,12 @@
 	"compatibility_flags": [
 		"nodejs_compat"
 	],
+	// 独自ドメインのみで公開する（workers.dev とプレビューURLは閉じる）
+	"workers_dev": false,
+	"preview_urls": false,
+	"routes": [
+		{ "pattern": "game.rucdev.com", "custom_domain": true }
+	],
 	"observability": {
 		"enabled": true
 	},
