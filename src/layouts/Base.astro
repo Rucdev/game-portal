@@ -1,6 +1,8 @@
 ---
+import { SITE_NAME } from '../site';
+
 interface Props {
-  title: string;
+  title?: string;
 }
 const { title } = Astro.props;
 ---
@@ -10,11 +12,11 @@ const { title } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
+    <title>{title ? `${title} | ${SITE_NAME}` : SITE_NAME}</title>
   </head>
   <body>
     <header class="site-header">
-      <a href="/" class="brand">game-portal</a>
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true">▶</span>{SITE_NAME}</a>
       <nav><a href="/admin">管理</a></nav>
     </header>
     <main>
@@ -80,6 +82,19 @@ const { title } = Astro.props;
     color: var(--ink);
     text-decoration: none;
     letter-spacing: 0.01em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .site-header .brand-mark {
+    display: inline-grid;
+    place-items: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 6px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-size: 0.7rem;
   }
   main {
     max-width: 60rem;

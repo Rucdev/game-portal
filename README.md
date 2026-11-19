@@ -1,4 +1,6 @@
-# game-portal
+# Ruc GameCenter
+
+（リポジトリ / Cloudflare リソース名は `game-portal`）
 
 Godot の Web エクスポートをアップロードして配信するサイト。Cloudflare Workers 上で動く。
 
