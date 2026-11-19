@@ -4,6 +4,8 @@
 
 Godot の Web エクスポートをアップロードして配信するサイト。Cloudflare Workers 上で動く。
 
+本番: https://game.rucdev.com
+
 - **サイト / 管理画面**: Astro（`@astrojs/cloudflare`）、管理画面は Svelte のアイランド
 - **API**: Hono（`/api/*`）
 - **バンドル置き場**: R2（`games/<slug>/<version>/...`）
@@ -14,6 +16,8 @@ Godot の `.wasm` はそのままだと Workers の静的アセット上限（1�
 エクスポート結果は R2 に置き、Worker 経由で同一オリジンから配信する。
 
 ## URL
+
+本番は https://game.rucdev.com （`workers.dev` とプレビューURLは無効）。
 
 | パス | 内容 |
 | --- | --- |
@@ -54,11 +58,14 @@ npm run db:migrate:remote
 npm run deploy
 ```
 
+公開先は `wrangler.jsonc` の `routes` にある独自ドメイン `game.rucdev.com`（Custom Domain）。
+`workers_dev` と `preview_urls` は `false` にしてあり、独自ドメイン以外からは開けない。
+
 ### Cloudflare Access
 
 `/admin` と `/api/*` は Access の JWT を検証する。**本番で未設定の場合はすべて拒否する。**
 
-1. Zero Trust で Self-hosted アプリケーションを作り、対象パスを `/admin` と `/api` にする
+1. Zero Trust で Self-hosted アプリケーションを作り、対象を `game.rucdev.com/admin` と `game.rucdev.com/api` にする
 2. `wrangler.jsonc` の `vars` に設定する
    - `ACCESS_TEAM_DOMAIN`: `https://<team>.cloudflareaccess.com`
    - `ACCESS_AUD`: アプリケーションの Application Audience (AUD) タグ
